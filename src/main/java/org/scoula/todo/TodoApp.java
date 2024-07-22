@@ -1,7 +1,7 @@
 package org.scoula.todo;
 
 import org.scoula.todo.context.Context;
-import org.scoula.todo.exception.LoginFailException;
+import org.scoula.todo.exception.*;
 import org.scoula.todo.service.*;
 import org.scoula.todo.ui.Input;
 
@@ -9,8 +9,8 @@ import java.awt.*;
 import java.sql.SQLException;
 
 public class TodoApp extends App{
-    Menu userMenu;
-    Menu anonymousMenu;
+    Menu userMenu; //로그인 한 상태의 메뉴
+    Menu anonymousMenu; // 로그아웃 한 상태의 메뉴
 
     LoginService loginService = new LoginService();
     AccountService accountService = new AccountService();
@@ -34,10 +34,11 @@ public class TodoApp extends App{
         userMenu.add(new MenuItem("Logout", this::logout));
         userMenu.add(new MenuItem("Terminate", this::exit));
 
-        setMenu(anonymousMenu);
+        setMenu(anonymousMenu); // 시작은 anonymous로.
     }
 
     public void join(){}
+
     public void login(){
         try {
             loginService.login();
@@ -51,7 +52,7 @@ public class TodoApp extends App{
     public void logout(){
         if(Input.confirm("Logout?")) {
             Context.getContext().setUser(null);
-            setMenu(anonymousMenu);
+            setMenu(anonymousMenu); // 메뉴 교체
         }
     }
 
