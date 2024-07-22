@@ -1,0 +1,3 @@
+rootProject.name = 'ScoulaTodo'
+include ':Scoulacli'
+project(':Scoulacli').projectDir=new File('C:\\Users\\student\\IdeaProjects\\ScoulaLib')
